@@ -31,8 +31,8 @@
         <version.asciidoctorj>2.5.3</version.asciidoctorj>
         <version.asciidoctorj.pdf>1.6.2</version.asciidoctorj.pdf>
         <version.asciidoctorj.diagram>2.2.1</version.asciidoctorj.diagram>
-        <github.raw>https://raw.githubusercontent.com/quarkusio/quarkus-workshops/main/quarkus-workshop-super-heroes</github.raw>
-        <github.url>https://github.com/quarkusio/quarkus-workshops/tree/main/quarkus-workshop-super-heroes</github.url>
+        <github.raw>https://raw.githubusercontent.com/holly-cummins/quarkus-workshops/main/quarkus-workshop-super-heroes</github.raw>
+        <github.url>https://github.com/holly-cummins/quarkus-workshops/tree/main/quarkus-workshop-super-heroes</github.url>
         <github.issue>https://github.com/quarkusio/quarkus-workshops/issues</github.issue>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
