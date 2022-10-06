@@ -47,6 +47,8 @@ T
 +++++++++ fight
 ++++++++++ FightResourceTest.java
 +++++++++ client
++++++++++++ DefaultTestHero.java
++++++++++++ DefaultTestVillain.java
 +++++++++++ MockHeroProxy.java
 +++++++++++ MockVillainProxy.java
 + pom.xml
@@ -63,7 +65,7 @@ We are going to rework the:
 
 == Installing the Reactive REST Client Dependency
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 To install the Reactive REST Client dependency, just run the following command in the Fight microservice:
 
@@ -90,7 +92,7 @@ Remember that in the previous sections we left the `FightService.findRandomFight
 We have to fix this.
 What we actually want is to invoke both the Hero and Villain APIs, asking for a random hero and a random villain.
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 For that, replace the `findRandomFighters` method with the following code to the `FightService` class:
 
@@ -134,7 +136,7 @@ If not done automatically by your IDE, add the following import statement: `impo
 
 Using the MicroProfile REST Client is as simple as creating an interface using the proper JAX-RS and MicroProfile annotations.
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 In our case both interfaces should be created under the `client` subpackage and have the following content:
 
@@ -193,7 +195,7 @@ public interface VillainProxy {
 }
 ----
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 Once created, go back to the `FightService` class and add the following import statements:
 
@@ -205,7 +207,7 @@ import io.quarkus.workshop.superheroes.fight.client.VillainProxy;
 
 == Configuring REST Client Invocation
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 In order to determine the base URL to which REST calls will be made, the REST Client uses configuration from `application.properties`.
 The name of the property needs to follow a certain convention which is best displayed in the following code:
@@ -236,7 +238,7 @@ To avoid this, we need to Mock the `HeroProxy` and `VillainProxy` interfaces.
 
 Quarkus supports the use of mock objects using the CDI `@Alternative` mechanism.footnote:[Alternatives https://docs.jboss.org/weld/reference/latest/en-US/html/beanscdi.html#_alternatives]
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 To use this simply override the bean you wish to mock with a class in the `src/test/java` directory, and put the `@Alternative` and `@Priority(1)` annotations on the bean.
 Alternatively, a convenient `io.quarkus.test.Mock` stereotype annotation could be used.
@@ -251,30 +253,24 @@ import io.quarkus.test.Mock;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 @Mock
 @ApplicationScoped
 @RestClient
 public class MockHeroProxy implements HeroProxy {
 
-    public static final String DEFAULT_HERO_NAME = "Super Baguette";
-    public static final String DEFAULT_HERO_PICTURE = "super_baguette.png";
-    public static final String DEFAULT_HERO_POWERS = "eats baguette really quickly";
-    public static final int DEFAULT_HERO_LEVEL = 42;
+    @Inject
+    DefaultTestHero hero;
 
     @Override
     public Hero findRandomHero() {
-        Hero hero = new Hero();
-        hero.name = DEFAULT_HERO_NAME;
-        hero.picture = DEFAULT_HERO_PICTURE;
-        hero.powers = DEFAULT_HERO_POWERS;
-        hero.level = DEFAULT_HERO_LEVEL;
         return hero;
     }
 }
 ----
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 Do the same for the `MockVillainProxy`:
 
@@ -286,50 +282,91 @@ import io.quarkus.test.Mock;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 @Mock
 @ApplicationScoped
 @RestClient
 public class MockVillainProxy implements VillainProxy {
 
-    public static final String DEFAULT_VILLAIN_NAME = "Super Chocolatine";
-    public static final String DEFAULT_VILLAIN_PICTURE = "super_chocolatine.png";
-    public static final String DEFAULT_VILLAIN_POWERS = "does not eat pain au chocolat";
-    public static final int DEFAULT_VILLAIN_LEVEL = 42;
+    @Inject
+    DefaultTestVillain villain;
 
     @Override
     public Villain findRandomVillain() {
-        Villain villain = new Villain();
-        villain.name = DEFAULT_VILLAIN_NAME;
-        villain.picture = DEFAULT_VILLAIN_PICTURE;
-        villain.powers = DEFAULT_VILLAIN_POWERS;
-        villain.level = DEFAULT_VILLAIN_LEVEL;
         return villain;
     }
 }
 ----
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+We are using some common classes for the test data.
+Let your IDE create the classes for you, and then fill in the following contents:
+
+[source,java]
+----
+package io.quarkus.workshop.superheroes.fight.client;
+
+import javax.inject.Singleton;
+
+@Singleton
+public class DefaultTestHero extends Hero {
+    public static final String DEFAULT_HERO_NAME = "Super Baguette";
+    public static final String DEFAULT_HERO_PICTURE = "super_baguette.png";
+    public static final String DEFAULT_HERO_POWERS = "eats baguette really quickly";
+    public static final int DEFAULT_HERO_LEVEL = 42;
+
+    public DefaultTestHero() {
+        this.name = DEFAULT_HERO_NAME;
+        this.picture = DEFAULT_HERO_PICTURE;
+        this.powers = DEFAULT_HERO_POWERS;
+        this.level = DEFAULT_HERO_LEVEL;
+    }
+}
+----
+
+[source,java]
+----
+package io.quarkus.workshop.superheroes.fight.client;
+
+import javax.inject.Singleton;
+
+@Singleton
+public class DefaultTestVillain extends Villain {
+    public static final String DEFAULT_VILLAIN_NAME = "Super Chocolatine";
+    public static final String DEFAULT_VILLAIN_PICTURE = "super_chocolatine.png";
+    public static final String DEFAULT_VILLAIN_POWERS = "does not eat pain au chocolat";
+    public static final int DEFAULT_VILLAIN_LEVEL = 42;
+
+    public DefaultTestVillain() {
+        this.name = DEFAULT_VILLAIN_NAME;
+        this.picture = DEFAULT_VILLAIN_PICTURE;
+        this.powers = DEFAULT_VILLAIN_POWERS;
+        this.level = DEFAULT_VILLAIN_LEVEL;
+    }
+}
+----
+
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 Finally, edit the `FightResourceTest` and add the following method:
 
 [source,java]
 --
 //....
-@Test
-void shouldGetRandomFighters() {
-    given()
-        .when().get("/api/fights/randomfighters")
-        .then()
-        .statusCode(OK.getStatusCode())
-        .contentType(APPLICATION_JSON)
-        .body("hero.name", Is.is(MockHeroProxy.DEFAULT_HERO_NAME))
-        .body("hero.picture", Is.is(MockHeroProxy.DEFAULT_HERO_PICTURE))
-        .body("hero.level", Is.is(MockHeroProxy.DEFAULT_HERO_LEVEL))
-        .body("villain.name", Is.is(MockVillainProxy.DEFAULT_VILLAIN_NAME))
-        .body("villain.picture", Is.is(MockVillainProxy.DEFAULT_VILLAIN_PICTURE))
-        .body("villain.level", Is.is(MockVillainProxy.DEFAULT_VILLAIN_LEVEL));
-}
+    @Test
+    void shouldGetRandomFighters() {
+        given()
+            .when().get("/api/fights/randomfighters")
+            .then()
+            .statusCode(OK.getStatusCode())
+            .contentType(APPLICATION_JSON)
+            .body("hero.name", Is.is(DefaultTestHero.DEFAULT_HERO_NAME))
+            .body("hero.picture", Is.is(DefaultTestHero.DEFAULT_HERO_PICTURE))
+            .body("hero.level", Is.is(DefaultTestHero.DEFAULT_HERO_LEVEL))
+            .body("villain.name", Is.is(DefaultTestVillain.DEFAULT_VILLAIN_NAME))
+            .body("villain.picture", Is.is(DefaultTestVillain.DEFAULT_VILLAIN_PICTURE))
+            .body("villain.level", Is.is(DefaultTestVillain.DEFAULT_VILLAIN_LEVEL));
+    }
 --
 
 Now, run the test form the dev mode, or from your IDE.
