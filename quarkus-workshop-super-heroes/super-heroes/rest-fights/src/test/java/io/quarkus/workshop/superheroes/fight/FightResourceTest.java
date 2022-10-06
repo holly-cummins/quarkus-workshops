@@ -1,17 +1,22 @@
 package io.quarkus.workshop.superheroes.fight;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.mockito.InjectMock;
 import io.quarkus.workshop.superheroes.fight.client.DefaultTestHero;
 import io.quarkus.workshop.superheroes.fight.client.DefaultTestVillain;
 import io.quarkus.workshop.superheroes.fight.client.Hero;
+import io.quarkus.workshop.superheroes.fight.client.HeroProxy;
 import io.quarkus.workshop.superheroes.fight.client.Villain;
 import io.restassured.common.mapper.TypeRef;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.hamcrest.core.Is;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Random;
 
@@ -29,6 +34,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -43,6 +49,18 @@ public class FightResourceTest {
 
     private static final int NB_FIGHTS = 3;
     private static String fightId;
+
+    @InjectMock(convertScopes = true)
+    @RestClient
+    HeroProxy heroProxy;
+
+    @Inject
+    DefaultTestHero defaultHero;
+
+    @BeforeEach
+    public void setup() {
+        when(heroProxy.findRandomHero()).thenReturn(defaultHero);
+    }
 
     @Test
     void shouldPingOpenAPI() {

@@ -1,0 +1,47 @@
+== Prepare for contract testing
+
+Before we can do contract testing, we need to make some changes to how we are doing mocking.
+We used `@Mock` to define global mocks.
+
+When we use Pact, the Pact framework stands up a server which acts as a mock.
+The global mock will interfere with this mock, so we will rewrite the tests to eliminate the global mock.
+
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
+
+*Delete* `MockHeroProxy.java` and `MockVillainProxy.java`.
+
+Add Pact and the extended Mockito support to the `fight` service's `pom.xml`:
+
+[source,xml]
+----
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5-mockito</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>au.com.dius.pact.consumer</groupId>
+            <artifactId>junit5</artifactId>
+            <version>4.3.14</version>
+            <scope>test</scope>
+        </dependency>
+----
+
+Add the following to the top of the `FightResourceTest`:
+
+[source,text]
+----
+    @InjectMock(convertScopes = true)
+    @RestClient
+    HeroProxy heroProxy;
+
+    @Inject
+    DefaultTestHero defaultHero;
+
+    @BeforeEach
+    public void setup() {
+        when(heroProxy.findRandomHero()).thenReturn(defaultHero);
+    }
+----
+
+Confirm that the fight tests are all still passing.
