@@ -186,122 +186,10 @@ We will see later why this is essential for Quarkus.
 It uses JAX-RS annotations such as `@Path`, `@GET`...
 `reasteasy-reactive-jackson` adds JSON object mapping capabilities to RESTEasy reactive.
 
-== The Villain Resource
-
-During the project creation, the `VillainResource.java` file has been created with the following content:
-
-[source,java]
-----
-package io.quarkus.workshop.superheroes.villain;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
-@Path("/api/villains")
-public class VillainResource {
-
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello RESTEasy Reactive";
-    }
-}
-----
-
-It's a very simple REST endpoint returning "Hello RESTEasy Reactive" to requests on `/api/villains`.
-It uses JAX-RS annotations:
-
-- `@Path` indicates the HTTP path handled by the resource,
-- `@GET` indicates that the method should be called when receiving a `GET` request on `/api/villains`.
-
-NOTE: Methods can also have their own `@Path` annotation suffixed to the class one (if any).
-
-== Running the Application
-
-icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
-
-Now we are ready to run our application.
-
-Use: `./mvnw quarkus:dev` in the `rest-villains` directory:
-
-[source,shell,,subs="attributes+"]
-----
-$ ./mvnw quarkus:dev
-[INFO] Scanning for projects...
-[INFO]
-[INFO] -----------< io.quarkus.workshop.super-heroes:rest-villains >-----------
-[INFO] Building rest-villains 1.0.0-SNAPSHOT
-[INFO] --------------------------------[ jar ]---------------------------------
-[INFO]
-[INFO] --- quarkus-maven-plugin:{quarkus-version}:dev (default-cli) @ rest-villains ---
-[INFO] Invoking io.quarkus.platform:quarkus-maven-plugin:{quarkus-version}:generate-code @ rest-villains
-[INFO] Invoking org.apache.maven.plugins:maven-resources-plugin:2.6:resources @ rest-villains
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 2 resources
-[INFO] Invoking org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile @ rest-villains
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 1 source file to /Users/clement/Downloads/rest-villains/target/classes
-[INFO] Invoking org.apache.maven.plugins:maven-resources-plugin:2.6:testResources @ rest-villains
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] skip non existing resourceDirectory /Users/clement/Downloads/rest-villains/src/test/resources
-[INFO] Invoking org.apache.maven.plugins:maven-compiler-plugin:3.8.1:testCompile @ rest-villains
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 2 source files to /Users/clement/Downloads/rest-villains/target/test-classes
-Listening for transport dt_socket at address: 5005
-__  ____  __  _____   ___  __ ____  ______
- --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
- -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
---\___\_\____/_/ |_/_/|_/_/|_|\____/___/
-2021-09-21 13:29:16,328 INFO  [io.quarkus] (Quarkus Main Thread) rest-villains 1.0.0-SNAPSHOT on JVM (powered by Quarkus {quarkus-version}) started in 1.553s. Listening on: http://localhost:8080
-2021-09-21 13:29:16,332 INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.
-2021-09-21 13:29:16,333 INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [cdi, resteasy-reactive, resteasy-reactive-jackson, smallrye-context-propagation]
-----
-
-Then check that the endpoint returns `hello` as expected:
-
-[source,shell]
-----
-curl http://localhost:8080/api/villains
-
-Hello RESTEasy Reactive
-----
-
-Alternatively, you can open http://localhost:8080/api/villains in your browser.
-
-== Development Mode
-
-`quarkus:dev` runs Quarkus in development mode.
-It enables hot deployment with background compilation, which means that when you modify your Java files or your resource files and invoke a REST endpoint (i.e., cURL command or refresh your browser), these changes will automatically take effect.
-It works too for resource files like the configuration property and HTML files.
-Refreshing the browser triggers a scan of the workspace, and if any changes are detected, the Java files are recompiled and the application is redeployed; your request is then serviced by the redeployed application.
-If there are any issues with compilation or deployment an error page will let you know.
-
-The development mode also allows debugging and listens for a debugger on port 5005.
-If you want to wait for the debugger to attach before running, you can pass `-Dsuspend=true` on the command line.
-If you don't want the debugger at all, you can use `-Ddebug=false`.
-
-Alright, time to change some code.
-Open your favorite IDE and import the project.
-To check that the hot reload is working, update the `VillainResource.hello()` method by returning the String "Hello Villain Resource".
-
-Now, execute the cURL command again:
-
-icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
-
-[source,shell]
-----
-curl http://localhost:8080/api/villains
-
-Hello Villain Resource
-----
-
-The output has changed without you having to stop and restart Quarkus!
-
 == Testing the Application
 
-All right, so far, so good, but wouldn't it be better with a few tests, just in case.
+Before we go any further, we want tests.
+You don't *have* to do TDD with Quarkus, but it makes it very nice.
 
 In the generated `pom.xml` file, you can see two test dependencies:
 
@@ -380,6 +268,42 @@ You can also configure the ports used by tests by configuring the `quarkus.http.
 
 icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
+Run `.mvnw quarkus:dev` in the `rest-villains` directory.
+You should see
+
+[source,shell,,subs="attributes+"]
+----
+$ ./mvnw quarkus:dev
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------< io.quarkus.workshop.super-heroes:rest-villains >-----------
+[INFO] Building rest-villains 1.0.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- quarkus-maven-plugin:{quarkus-version}:dev (default-cli) @ rest-villains ---
+[INFO] Invoking io.quarkus.platform:quarkus-maven-plugin:{quarkus-version}:generate-code @ rest-villains
+[INFO] Invoking org.apache.maven.plugins:maven-resources-plugin:2.6:resources @ rest-villains
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] Invoking org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile @ rest-villains
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /Users/clement/Downloads/rest-villains/target/classes
+[INFO] Invoking org.apache.maven.plugins:maven-resources-plugin:2.6:testResources @ rest-villains
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/clement/Downloads/rest-villains/src/test/resources
+[INFO] Invoking org.apache.maven.plugins:maven-compiler-plugin:3.8.1:testCompile @ rest-villains
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to /Users/clement/Downloads/rest-villains/target/test-classes
+Listening for transport dt_socket at address: 5005
+__  ____  __  _____   ___  __ ____  ______
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/
+2021-09-21 13:29:16,328 INFO  [io.quarkus] (Quarkus Main Thread) rest-villains 1.0.0-SNAPSHOT on JVM (powered by Quarkus {quarkus-version}) started in 1.553s. Listening on: http://localhost:8080
+2021-09-21 13:29:16,332 INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.
+2021-09-21 13:29:16,333 INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [cdi, resteasy-reactive, resteasy-reactive-jackson, smallrye-context-propagation]
+----
+
 In the terminal running the application in _dev mode_, you should see at the bottom:
 
 [source,text]
@@ -390,67 +314,88 @@ Press [r] to resume testing, [o] Toggle test output, [h] for more options>
 ----
 
 Hit the `r` key, and watch Quarkus execute your tests automatically and even continuously.
-Unfortunately, this first run didn't end well:
+The tests should run cleanly ... but they're not testing what we really want.
+
+Change
+
+[source,java]
+````
+             .body(is("Hello RESTEasy Reactive"));
+----
+to
+[source, java]
+```
+
+` .body(is("Hello Villain Resource"));
+
+----
+
+
+That should give a failure. This is good, because it tells us our tests are working, and
+can guide the implementation.
 
 [source,text]
 ----
-Running 1/1. Running: io.quarkus.workshop.superheroes.villain.VillainResourceTest#testHelloEndpoint()
-Press [o] Toggle test output, [h] for more options>WARNING: An illegal reflective access operation has occurred
-WARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v9.Java9 (file:/Users/clement/.m2/repository/org/codehaus/groovy/groovy/3.0.8/groovy-3.0.8.jar) to constructor java.lang.AssertionError(java.lang.String)
-2021-09-21 13:39:19,710 ERROR [io.qua.test] (Test runner thread) ==================== TEST REPORT #1 ====================
-2021-09-21 13:39:19,711 ERROR [io.qua.test] (Test runner thread) Test VillainResourceTest#testHelloEndpoint() failed
-: java.lang.AssertionError: 1 expectation failed.
+
+Running 1/1. Running: io.quarkus.workshop.superheroes.villain.VillainResourceTest#testHelloEndpoint() Press [o] Toggle test output, [h] for more options>WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v9.Java9 (file:/Users/clement/.m2/repository/org/codehaus/groovy/groovy/3.0.8/groovy-3.0.8.jar) to constructor java.lang.AssertionError(java.lang.String) 2021-09-21 13:39:19,710 ERROR [io.qua.test] (Test runner thread) ==================== TEST REPORT #1 ==================== 2021-09-21 13:39:19,711 ERROR [io.qua.test] (Test runner thread) Test VillainResourceTest#testHelloEndpoint() failed : java.lang.AssertionError: 1 expectation failed.
 Response body doesn't match expectation.
-Expected: is "Hello RESTEasy Reactive"
-  Actual: Hello Villain Resource
+Expected: is "Hello Villain Resource" Actual: HHello RESTEasy Reactive
 
    at io.restassured.internal.ValidatableResponseImpl.body(ValidatableResponseImpl.groovy)
    at io.quarkus.workshop.superheroes.villain.VillainResourceTest.testHelloEndpoint(VillainResourceTest.java:18)
 
-2021-09-21 13:39:19,714 ERROR [io.qua.test] (Test runner thread) >>>>>>>>>>>>>>>>>>>> 1 TEST FAILED <<<<<<<<<<<<<<<<<<<<
-2021-09-21 13:39:20,030 ERROR [io.qua.test] (Test runner thread) ==================== TEST REPORT #2 ====================
-2021-09-21 13:39:20,030 ERROR [io.qua.test] (Test runner thread) Test VillainResourceTest#testHelloEndpoint() failed
-: java.lang.AssertionError: 1 expectation failed.
+2021-09-21 13:39:19,714 ERROR [io.qua.test] (Test runner thread) >>>>>>>>>>>>>>>>>>>> 1 TEST FAILED <<<<<<<<<<<<<<<<<<<< 2021-09-21 13:39:20,030 ERROR [io.qua.test] (Test runner thread) ==================== TEST REPORT #2 ==================== 2021-09-21 13:39:20,030 ERROR [io.qua.test] (Test runner thread) Test VillainResourceTest#testHelloEndpoint() failed : java.lang.AssertionError: 1 expectation failed.
 Response body doesn't match expectation.
-Expected: is "Hello RESTEasy Reactive"
-  Actual: Hello Villain Resource
+Expected: is "Hello Villain Resource" Actual: Hello RESTEasy Reactive
 
    at io.restassured.internal.ValidatableResponseImpl.body(ValidatableResponseImpl.groovy)
    at io.quarkus.workshop.superheroes.villain.VillainResourceTest.testHelloEndpoint(VillainResourceTest.java:18)
 
 2021-09-21 13:39:20,031 ERROR [io.qua.test] (Test runner thread) >>>>>>>>>>>>>>>>>>>> 1 TEST FAILED <<<<<<<<<<<<<<<<<<<<
+
 ----
 
-It fails!
-It's expected, you changed the output of `VillainResource.hello()` earlier.
-Adjust the test body condition accordingly:
+This test failure tests us that although the implementation doesn't do exactly what we want,
+it's doing something. As well as the tests, the scaffolding gave us a basic implementation.
 
 [source,java]
 ----
+
 package io.quarkus.workshop.superheroes.villain;
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
+import javax.ws.rs.GET; import javax.ws.rs.Path; import javax.ws.rs.Produces; import javax.ws.rs.core.MediaType;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
+@Path("/api/villains") public class VillainResource {
 
-@QuarkusTest
-public class VillainResourceTest {
-
-    @Test
-    public void testHelloEndpoint() {
-        given()
-          .when().get("/api/villains")
-          .then()
-             .statusCode(200)
-             .body(is("Hello Villain Resource"));
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "Hello RESTEasy Reactive";
     }
-
 }
 ----
 
-Save the file, and watch the dev mode automatically rerunning your test:
+Adjust the implementation accordingly to change the hello message:
+
+[source,java]
+----
+
+package io.quarkus.workshop.superheroes.villain;
+
+import javax.ws.rs.GET; import javax.ws.rs.Path; import javax.ws.rs.Produces; import javax.ws.rs.core.MediaType;
+
+@Path("/api/villains") public class VillainResource {
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "Hello Villain Resource";
+    }
+}
+----
+
+Save the file, and watch the dev mode automatically rerunning your test (and passing)
 
 [source,text]
 ----
@@ -464,8 +409,68 @@ You can also run the tests from a terminal using:
 
 [source,shell]
 ----
+
 ./mvnw test
 ----
+
+== The Villain Resource
+
+During the project creation, the `VillainResource.java` file was created.
+
+It's a very simple REST endpoint returning a hello string to requests on `/api/villains`.
+It uses JAX-RS annotations:
+
+- `@Path` indicates the HTTP path handled by the resource,
+- `@GET` indicates that the method should be called when receiving a `GET` request on `/api/villains`.
+
+NOTE: Methods can also have their own `@Path` annotation suffixed to the class one (if any).
+
+== Running the Application
+
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
+
+If you'd like to verify what the tests are telling us, run the application.
+The same `./mvnw quarkus:dev` command that runs the test also allows us to interact with the application.
+
+Then check that the endpoint returns `hello` as expected:
+
+[source,shell]
+----
+curl http://localhost:8080/api/villains
+
+Hello Villain Resource
+----
+
+Alternatively, you can open http://localhost:8080/api/villains in your browser.
+
+== Development Mode
+
+`quarkus:dev` runs Quarkus in development mode.
+It enables hot deployment with background compilation, which means that when you modify your Java files or your resource files and invoke a REST endpoint (i.e., cURL command or refresh your browser), these changes will automatically take effect.
+It works too for resource files like the configuration property and HTML files.
+Refreshing the browser triggers a scan of the workspace, and if any changes are detected, the Java files are recompiled and the application is redeployed; your request is then serviced by the redeployed application.
+If there are any issues with compilation or deployment an error page will let you know.
+
+The development mode also allows debugging and listens for a debugger on port 5005.
+If you want to wait for the debugger to attach before running, you can pass `-Dsuspend=true` on the command line.
+If you don't want the debugger at all, you can use `-Ddebug=false`.
+
+Alright, time to change some code.
+Open your favorite IDE and import the project.
+To check that the hot reload is working, update the `VillainResource.hello()` method by returning the String "Hello Villain Resource".
+
+Now, execute the cURL command again:
+
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
+
+[source,shell]
+----
+curl http://localhost:8080/api/villains
+
+Hello Villain Resource
+----
+
+The output has changed without you having to stop and restart Quarkus!
 
 == Packaging and Running the Application
 
