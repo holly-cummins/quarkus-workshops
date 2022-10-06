@@ -7,7 +7,7 @@ Here are a few commands that you can execute before the workshop.
 
 == Download the workshop scaffolding
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 First, download the zip file  {github-raw}/dist/quarkus-super-heroes-workshop.zip, and unzip it wherever you want.
 This zip file contains _some_ of the code of the workshop, and you will need to complete it.
@@ -83,8 +83,7 @@ include::introduction-preparing-checking-ports.adoc[leveloffset=+1]
 
 Now that you have the initial structure in place, navigate to the root directory and run:
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
-
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 [source,shell]
 ----
@@ -100,11 +99,9 @@ include::introduction-preparing-warming-docker.adoc[leveloffset=+1]
 You can find the completed code on {github-url}.
 So, if you are stuck, feel free to check the solution.
 
-In addition, you can {github-raw}/dist/quarkus-super-heroes-workshop-complete.zip[download] the full code of the workshop .
-
 To build the completed workshop, you need to run the following commands from the root project:
 
-[source, shell]
+[source,shell]
 ----
 > mvn clean install -f super-heroes/extension-version
 > mvn clean install -Pcomplete
@@ -112,5 +109,5 @@ To build the completed workshop, you need to run the following commands from the
 
 == Ready?
 
-After the prerequisites have been installed and the different components have been warmed up,  it's now time to write some code!
+After the prerequisites have been installed and the different components have been warmed up, it's now time to write some code!
 

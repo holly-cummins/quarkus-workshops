@@ -27,7 +27,9 @@ The Super Hero UI is exposed via Quarkus and invokes the Fight REST API
 * _Villain REST API_: A classical HTTP microservice exposing CRUD operations on Villains, stored in a PostgreSQL database
 * _Hero REST API_: A reactive HTTP microservice exposing CRUD operations on Heroes, stored in a Postgres database
 * _Fight REST API_: This REST API invokes the Hero and Villain APIs to get a random superhero and supervillain.
-Each fight is, then, stored in a PostgreSQL database. This microservice can be developed using both the classical (_imperative_) or reactive approach. Invocations to the hero and villain services are protected using resilience patterns (retry, timeout, circuit-breakers)
+Each fight is, then, stored in a PostgreSQL database.
+This microservice can be developed using both the classical (_imperative_) or reactive approach.
+Invocations to the hero and villain services are protected using resilience patterns (retry, timeout, circuit-breakers)
 * _Statistics_: Each fight is asynchronously sent (via Kafka) to the Statistics microservice.
 It has an HTML + JQuery UI displaying all the statistics.
 * _Promotheus_ polls metrics from the three microservices Fight, Hero, and Villain.
@@ -37,8 +39,7 @@ It has an HTML + JQuery UI displaying all the statistics.
 include::{plantDir}/0-introduction-physical-architecture.puml[]
 ----
 
-The main UI allows you to pick up one random Hero and Villain by clicking on "New Fighters."
-Then it's just a matter of clicking on "Fight!" to get them to fight.
+The main UI allows you to pick up one random Hero and Villain by clicking on "New Fighters." Then it's just a matter of clicking on "Fight!" to get them to fight.
 The table at the bottom shows the list of the previous fights.
 
 image::angular-ui.png[role=half-size]
@@ -64,7 +65,7 @@ This workshop should be as self-explanatory as possible.
 So your job is to follow the instructions by yourself, do what you are supposed to do, and do not hesitate to ask for any clarification or assistance; that's why the team is here.
 
 You will download a zip file (`quarkus-super-heroes-workshop.zip`) containing _some_ of the code and you will need to complete it.
-If you are stuck, you can always look at the final code in the GitHub repository, or download another zip file (`quarkus-super-heroes-workshop-complete.zip`) that contains _all_ the code of the workshop.
+If you are stuck, you can always look at the final code in the GitHub repository.
 
 Oh, and be ready to have some fun!
 
@@ -79,7 +80,8 @@ If you are using Mac OS X, make sure the version is greater than 10.11.x (Captai
 
 This workshop will make use of the following Software, tools, frameworks that you will need to install and now (more or less) how it works:
 
-* Any IDE you feel comfortable with (eg. Intellij IDEA, Eclipse IDE, VS Code..)
+* Any IDE you feel comfortable with (eg.
+Intellij IDEA, Eclipse IDE, VS Code..)
 * JDK {jdk-version}
 * GraalVM {graalvm-version}
 * Maven {maven-version}
