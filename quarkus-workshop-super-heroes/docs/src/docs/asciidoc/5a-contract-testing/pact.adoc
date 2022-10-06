@@ -38,6 +38,8 @@ The hero's level is always 0. Why didn't the tests catch this?
 Although we changed the provider of an API, no one told the consumer that the API had changed.
 The unit tests were (correctly) isolated in scope, so they didn't catch the cross-service misunderstanding.
 
+Feel free to reverse the change now, rather than patching up the service consumer.
+
 This was a slightly contrived example, but uncaught API changes are a common cause of breaks, especially early in project development, before APIs have been locked down.
 Tools like OpenAPI validation can catch syntax changes, but they will not catch semantic changes.
 (What if we'd changed the level to be normalised against the best fighter, or count down from 100?)
