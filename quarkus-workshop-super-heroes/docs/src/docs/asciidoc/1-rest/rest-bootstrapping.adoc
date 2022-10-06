@@ -9,7 +9,7 @@ That's what you are going to see in this section.
 The easiest way to create a new Quarkus project is to use the Quarkus Maven plugin.
 Open a terminal and run the following command:
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 [source,shell,subs="attributes+"]
 ----
@@ -216,11 +216,11 @@ It uses JAX-RS annotations:
 - `@Path` indicates the HTTP path handled by the resource,
 - `@GET` indicates that the method should be called when receiving a `GET` request on `/api/villains`.
 
-NOTE: Method can also have their own `@Path` annotation suffixed to the class one (if any).
+NOTE: Methods can also have their own `@Path` annotation suffixed to the class one (if any).
 
 == Running the Application
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 Now we are ready to run our application.
 
@@ -275,8 +275,7 @@ Alternatively, you can open http://localhost:8080/api/villains in your browser.
 `quarkus:dev` runs Quarkus in development mode.
 It enables hot deployment with background compilation, which means that when you modify your Java files or your resource files and invoke a REST endpoint (i.e., cURL command or refresh your browser), these changes will automatically take effect.
 It works too for resource files like the configuration property and HTML files.
-Refreshing the browser triggers a scan of the workspace, and if any changes are detected, the Java files are recompiled and the application is redeployed;
-your request is then serviced by the redeployed application.
+Refreshing the browser triggers a scan of the workspace, and if any changes are detected, the Java files are recompiled and the application is redeployed; your request is then serviced by the redeployed application.
 If there are any issues with compilation or deployment an error page will let you know.
 
 The development mode also allows debugging and listens for a debugger on port 5005.
@@ -289,7 +288,7 @@ To check that the hot reload is working, update the `VillainResource.hello()` me
 
 Now, execute the cURL command again:
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 [source,shell]
 ----
@@ -379,7 +378,7 @@ So in your RestAssured tests, you don't have to specify the default test port 80
 You can also configure the ports used by tests by configuring the `quarkus.http.test-port` property in the application.properties.
 ====
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 In the terminal running the application in _dev mode_, you should see at the bottom:
 
@@ -422,7 +421,8 @@ Expected: is "Hello RESTEasy Reactive"
 2021-09-21 13:39:20,031 ERROR [io.qua.test] (Test runner thread) >>>>>>>>>>>>>>>>>>>> 1 TEST FAILED <<<<<<<<<<<<<<<<<<<<
 ----
 
-It fails! It's expected, you changed the output of `VillainResource.hello()` earlier.
+It fails!
+It's expected, you changed the output of `VillainResource.hello()` earlier.
 Adjust the test body condition accordingly:
 
 [source,java]
@@ -469,13 +469,14 @@ You can also run the tests from a terminal using:
 
 == Packaging and Running the Application
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 The application is packaged using the `./mvnw package` command (it also runs the tests).
 That command generates:
 
 * `target/rest-villains-1.0-SNAPSHOT.jar`: containing just the classes and resources of the projects, it's the regular artifact produced by the Maven build (it is not an executable jar);
-* `target/quarkus-app/` : this directory uses the _fast jar_ packaging. It contains an executable jar (`quarkus-run.jar`), and all the dependencies (structured into `app`, `lib` and `quarkus`).
+* `target/quarkus-app/` : this directory uses the _fast jar_ packaging.
+It contains an executable jar (`quarkus-run.jar`), and all the dependencies (structured into `app`, `lib` and `quarkus`).
 
 This _fast jar_ takes advantage of the build-time principle of Quarkus (we discuss it soon) to improve the application performances and which can be easily transposed to container layers.
 
@@ -489,7 +490,6 @@ Before running the application, don't forget to stop the hot reload mode (hit CT
 [WARNING]
 ====
 .Troubleshooting
-
 You might come across the following error while developing:
 
 [source,shell]
