@@ -54,7 +54,7 @@ Because JPA and Bean Validation work well together, we will use Bean Validation 
 
 To add the required dependencies, just run the following command:
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 [source,shell]
 ----
@@ -89,7 +89,7 @@ From now on, you can choose to either edit your pom directly or use the `quarkus
 
 == Villain Entity
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 To define a Panache entity, simply extend `PanacheEntity`, annotate it with `@Entity` and add your columns as public fields (no need to have getters and setters).
 The `Villain` entity should look like this:
@@ -163,10 +163,9 @@ villain = Villain.findById(id);
 long countAll = Villain.count();
 ----
 
-
 But we are missing a business method: we need to return a random villain.
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 For that it's just a matter to add the following method to our `Villain.java` entity:
 
@@ -198,7 +197,7 @@ We use `quarkus.hibernate-orm.database.generation=drop-and-create` in conjunctio
 This is best to perfectly control your environment and works magic with Quarkus live reload mode:
 your entity changes or any change to your `import.sql` is immediately picked up and the schema updated without restarting the application!
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 For that, make sure to have the following configuration in your `application.properties` (located in `src/main/resources`):
 
@@ -224,7 +223,7 @@ You can control whether and how the transaction is started with parameters on `@
 * `@Transactional(NOT_SUPPORTED)`: if a transaction was started, suspends it and works with no transaction for the boundary of the method ; otherwise works with no transaction.
 * `@Transactional(NEVER)`: if a transaction was started, raises an exception ; otherwise works with no transaction.
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 Creates a new `VillainService.java` file in the same package with the following content:
 
@@ -301,7 +300,7 @@ Our project now requires a connection to a PostgreSQL database.
 In dev mode, no need to start a database or configure anything.
 Quarkus does that for us.
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 Start the application in dev mode with `./mvnw quarkus:dev`.
 In the log, you will see the following:
@@ -341,8 +340,7 @@ If the application fails to start properly and the logs contain something like
 WARN  [or.te.ut.RyukResourceReaper] (testcontainers-ryuk) Can not connect to Ryuk at localhost:49153: java.net.ConnectException: Connection refused (Connection refused)
 ----
 
-try launching the application again
-after having the `TESTCONTAINERS_RYUK_DISABLED` environment variable to `true`.
+try launching the application again after having the `TESTCONTAINERS_RYUK_DISABLED` environment variable to `true`.
 This setting will likely also be needed **throughout** the workshop.
 ====
 
@@ -351,7 +349,7 @@ This setting will likely also be needed **throughout** the workshop.
 The `VillainResource` was bootstrapped with only one method `hello()`.
 We need to add extra methods that will allow CRUD operations on villains.
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 Here are the new methods to add to the `VillainResource` class:
 
@@ -477,7 +475,7 @@ public VillainResource(Logger logger, VillainService service) {
 
 == Adding Data
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 To load some SQL statements when Hibernate ORM starts, add the following `import.sql` in the root of the `resources` directory.
 It contains SQL statements terminated by a semicolon.
@@ -486,7 +484,7 @@ This is useful to have a data set ready for the tests or demos.
 [source,sql]
 ----
 INSERT INTO villain(id, name, otherName, picture, powers, level)
-VALUES (nextval('hibernate_sequence'), 'Buuccolo', 'Majin Buu', 'https://www.superherodb.com/pictures2/portraits/11/050/15355.jpg', 'Accelerated Healing, Adaptation, Agility, Flight, Immortality, Intelligence, Invulnerability, Reflexes, Self-Sustenance, Size Changing, Spatial Awareness, Stamina, Stealth, Super Breath, Super Speed, Super Strength, Teleportation', 22);
+VALUES (nextval('hibernate_sequence'), 'Buuccolo', 'Majin Buu', 'https://www.superherodb.com/pictures2/portraits/11/050/15355.jpg', 'Accelerated Healing, Adaptation, Agility, Flight, Immortality, Intelligence, Invulnerability, Reflexes, Self-Sustenance', 22);
 INSERT INTO villain(id, name, otherName, picture, powers, level)
 VALUES (nextval('hibernate_sequence'), 'Darth Vader', 'Anakin Skywalker', 'https://www.superherodb.com/pictures2/portraits/10/050/10444.jpg', 'Accelerated Healing, Agility, Astral Projection, Cloaking, Danger Sense, Durability, Electrokinesis, Energy Blasts, Enhanced Hearing, Enhanced Senses, Force Fields, Hypnokinesis, Illusions, Intelligence, Jump, Light Control, Marksmanship, Precognition, Psionic Powers, Reflexes, Stealth, Super Speed, Telekinesis, Telepathy, The Force, Weapons Master', 13);
 INSERT INTO villain(id, name, otherName, picture, powers, level)
@@ -512,8 +510,7 @@ You should see lots of heroes...
 To test the `VillainResource` endpoint, we just need to extend the `VillainResourceTest` we already have.
 No need to configure anything, Quarkus will start a test database for you.
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
-
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 In `io.quarkus.workshop.superheroes.villain.VillainResourceTest`, you will add the following test methods to the `VillainResourceTest` class:
 
@@ -568,7 +565,7 @@ public class VillainResourceTest {
     private static final int DEFAULT_LEVEL = 42;
     private static final int UPDATED_LEVEL = 43;
 
-    private static final int NB_VILLAINS = 581;
+    private static final int NB_VILLAINS = 5;
     private static String villainId;
 
     @Test
@@ -735,7 +732,7 @@ The tests and the application runs in the same JVM, meaning that the test can be
 This feature is very useful to test specific parts of the application.
 However, in our case, we just execute HTTP requests to check the result.
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 Run the test either in the dev mode or using `./mvnw test`.
 They should pass.
@@ -752,10 +749,9 @@ We need to configure the application to connect to a _real_ database.
 The main way of obtaining connections to a database is to use a datasource.
 In Quarkus, the out of the box datasource and connection pooling implementation is Agroal.footnote:[Agroal https://agroal.github.io]
 
-So, we need to configure the database access in the `src/main/resources/application.properties` file,
-but only when the application runs in _prod_ mode.
+So, we need to configure the database access in the `src/main/resources/application.properties` file, but only when the application runs in _prod_ mode.
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 Add the following datasource configuration:
 
@@ -778,7 +774,7 @@ Let's use Docker and docker compose to ease the installation of such infrastruct
 
 You should already have installed the infrastructure into the `infrastructure` directory.
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 Now, just execute `docker compose -f docker-compose.yaml up -d`.
 You should see a few logs going on and then all the containers get started.
@@ -799,7 +795,7 @@ Then, after the workshop, remember to shut them down using: `docker compose -f d
 
 === Packaging and running the application
 
-icon:hand-point-right[role="red", size=2x] [red big]#Call to action#
+icon:hand-point-right[role="red",size=2x] [red big]#Call to action#
 
 Stop the dev mode, and run:
 
