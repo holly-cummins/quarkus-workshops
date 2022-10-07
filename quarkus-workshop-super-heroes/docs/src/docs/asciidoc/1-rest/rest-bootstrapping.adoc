@@ -319,20 +319,19 @@ The tests should run cleanly ... but they're not testing what we really want.
 Change
 
 [source,java]
-````
+----
              .body(is("Hello RESTEasy Reactive"));
 ----
+
 to
-[source, java]
-```
 
-` .body(is("Hello Villain Resource"));
-
+[source,java]
+----
+             .body(is("Hello Villain Resource"));
 ----
 
-
-That should give a failure. This is good, because it tells us our tests are working, and
-can guide the implementation.
+That should give a failure.
+This is good, because it tells us our tests are working, and can guide the implementation.
 
 [source,text]
 ----
@@ -356,8 +355,8 @@ Expected: is "Hello Villain Resource" Actual: Hello RESTEasy Reactive
 
 ----
 
-This test failure tests us that although the implementation doesn't do exactly what we want,
-it's doing something. As well as the tests, the scaffolding gave us a basic implementation.
+This test failure tests us that although the implementation doesn't do exactly what we want, it's doing something.
+As well as the tests, the scaffolding gave us a basic implementation.
 
 [source,java]
 ----
