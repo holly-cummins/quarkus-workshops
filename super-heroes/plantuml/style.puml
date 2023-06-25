@@ -3,7 +3,7 @@ skinparam useBetaStyle true
 skinparam handwritten true
 allow_mixing
 
-skinparam node {
+skinparam package {
 	ArrowColor aqua
 
 	borderColor #566573
