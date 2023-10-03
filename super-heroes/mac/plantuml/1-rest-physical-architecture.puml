@@ -3,7 +3,7 @@
 
 left to right direction
 
-package "Villain" as villain {
+node "Villain" as villain {
     agent "Quarkus (imperative)" <<application>> as villainQuarkus
     database "Postgresql" as villainPostgresql
     villainQuarkus .up> villainPostgresql

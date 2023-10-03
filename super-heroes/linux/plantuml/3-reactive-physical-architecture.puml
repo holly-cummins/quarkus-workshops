@@ -3,7 +3,7 @@
 
 left to right direction
 
-package "Hero" as hero {
+node "Hero" as hero {
     agent "Quarkus (reactive)" <<application>> as heroQuarkus
     database "Postgresql" as heroPostgresql
     heroQuarkus .up> heroPostgresql

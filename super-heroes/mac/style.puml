@@ -1,51 +1,36 @@
-skinparam dpi 250
+skinparam dpi 300
+skinparam useBetaStyle true
 skinparam handwritten true
 allow_mixing
 
-skinparam defaultFontName  Open Sans
-skinparam packagestyle rect
-
-skinparam package {
-	ArrowColor black
-
-	borderColor #566573
-	backgroundColor #FFFFFF
-	fontSize 12
-	fontColor #566573
-}
-
 skinparam node {
-	ArrowColor black
+	ArrowColor aqua
 
 	borderColor #566573
-	backgroundColor #FFFFFF
-	fontSize 12
+	backgroundColor #F9E79F
+	fontName Calibri
+	fontSize 17
 	fontColor #566573
 }
 
 skinparam database {
-	borderColor #333333
-	backgroundColor #EEEEEEEE
+	borderColor #566573
+	backgroundColor #D5F5E3
 }
 
 skinparam agent {
-	borderColor #566573
-	backgroundColor #FFFFFF
-    borderColor<<frontend>> #D2B4DE
-    borderColor<<application>> #4695EB
-}
-
-skinparam stereotype {
-    fontColor<<application>> #FFFFFF
+    backgroundColor<<frontend>> #D2B4DE
+    backgroundColor<<application>> #FAE5D3
 }
 
 skinparam arrow {
-  color #4695EB
+  fontName Calibri
+  color #FF6655
   fontColor #777777
   thickness 2
   fontSize 11
 }
 
 skinparam class {
-  backgroundColor #FFFFFF
+  backgroundColor #FAE5D3
 }
