@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
 <meta name="author" content="Emmanuel Bernard, Clement Escoffier, Antonio Goncalves, Aurea Munoz Hernandez, Georgios Andrianakis, Holly Cummins">
-<title>Quarkus Super-Heroes Workshop: 2023-10-03 Quarkus 3.4.1</title>
+<title>Quarkus Super-Heroes Workshop: 2023-10-09 Quarkus 3.4.1</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -580,11 +580,10 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <header>
     <img src="images/quarkus-logo.png" alt="Quarkus Logo"/>
 </header>
-
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Quarkus Super-Heroes Workshop: 2023-10-03 Quarkus 3.4.1</h1>
+<h1>Quarkus Super-Heroes Workshop: 2023-10-09 Quarkus 3.4.1</h1>
 <div class="details">
 <span id="author" class="author">Emmanuel Bernard</span><br>
 <span id="author2" class="author">Clement Escoffier</span><br>
@@ -1157,12 +1156,19 @@ If you are stuck, you can always look at the final code in the <a href="https://
 <div class="sect4">
 <h5 id="_the_completed_workshop">The completed workshop</h5>
 <div class="paragraph">
-<p>If you want to build the completed workshop, after you&#8217;ve unzipped the <a href="https://raw.githubusercontent.com/holly-cummins/quarkus-workshops/refs/heads/main/quarkus-workshop-super-heroes/dist/quarkus-super-heroes-workshop-complete.zip"><code>quarkus-super-heroes-workshop-complete.zip</code></a> file, you would need to run the following commands from the root project:</p>
+<p>If you want to build the completed workshop, after you&#8217;ve unzipped the <a href="https://raw.githubusercontent.com/holly-cummins/quarkus-workshops/refs/heads/main/quarkus-workshop-super-heroes/dist/quarkus-super-heroes-workshop-complete.zip"><code>quarkus-super-heroes-workshop-complete.zip</code></a> file, you would need to run the following command from the root project:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="shell">$ ./mvnw clean install -f super-heroes/extension-version
-$ ./mvnw clean install -Pcomplete</code></pre>
+<pre class="CodeRay highlight"><code data-lang="shell">$ ./mvnw clean install -Pcomplete</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The extension can be built with the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">$ ./mvnw clean install -f super-heroes/extension-version</code></pre>
 </div>
 </div>
 </div>
@@ -11364,10 +11370,12 @@ This infrastructure starts all these services, so you don&#8217;t have to worry 
 <a href="#_footnoteref_28">28</a>. jq <a href="https://stedolan.github.io/jq" class="bare">https://stedolan.github.io/jq</a>
 </div>
 </div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2023-10-03 09:45:50 UTC
-</div>
-</div>
+<footer>
+    <div>Last updated 2023-10-09</div>
+    <div><i class="far fa-comments"></i>Need help? Join the <a
+        href="https://quarkusio.zulipchat.com/#narrow/stream/402952-workshops">
+        Zulip workshop chat</a>
+    </div>
+</footer>
 </body>
 </html>

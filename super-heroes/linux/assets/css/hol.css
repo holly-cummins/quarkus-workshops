@@ -36,7 +36,7 @@ html, body {
     --border-radius: 10px;
 
     --site-margins: 13rem;
-
+    --toc-width: 20rem;
 }
 
 body {
@@ -55,21 +55,49 @@ label {
     font-weight: normal;
 }
 
+i {
+    padding-right: 0.5em;
+}
+
 input[type="checkbox"], input[type="radio"] {
     margin-right: 8px;
 }
 
 #header,
 #content,
-#footnotes,
-#footer {
+#footnotes {
     max-width: 90.5em;
+}
+
+#footer, footer {
+    height: 42px;
+    width: 100%;
+    background-color: black;
+    color: var(--white);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    padding-left: calc(var(--toc-width) + var(--site-margins));
+    padding-right: var(--site-margins);
+    position: fixed;
+    bottom: 0;
+    right: 0
+}
+
+footer a:visited {
+    color: white;
+}
+
+footer a {
+    color: white;
 }
 
 /*There's a font override on these, which we need to de-override*/
 .admonitionblock .title {
-  font-size: 1rem !important;
-  font-family: 'Open Sans', Arial, sans-serif !important;
+    font-size: 1rem !important;
+    font-family: 'Open Sans', Arial, sans-serif !important;
 }
 
 .quoteblock blockquote,
@@ -106,28 +134,30 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: inherit;
-  line-height: 1.1;
-  color: darkblue;
+    font-family: inherit;
+    line-height: 1.1;
+    color: black;
+    font-weight: 600;
+    padding: 2rem 0 0.45rem 0;
 }
 
 h3, h4, .h3, .h4 {
-    border-bottom: 1px solid darkblue;
-    padding-top: 0.2em;
+    border-bottom: 1px solid lightgray;
 }
 
 h1 {
     margin: .67em 0;
     font-size: 2em;
     font-weight: bold;
+    padding: 3rem 0 0.7rem 0;
 }
 
 h2 {
-    font-size: 1.6em;
+    font-size: 1.8em;
 }
 
 h3 {
-    font-size: 1.5em;
+    font-size: 1.6em;
 }
 
 h4 {
@@ -167,6 +197,10 @@ samp {
 
 }
 
+#toc.toc2 {
+    width: var(--toc-width);
+}
+
 .content-area {
     margin-left: var(--site-margins);
     margin-right: var(--site-margins);
@@ -177,7 +211,7 @@ samp {
     /*We could set a background or other styling for the CTA blocks here,
     but we also need to undo the default 'example' styling */
     background-color: white;
-    border: 0px solid white;
+    border: 0 solid white;
     box-shadow: none;
     padding: 0;
 }
@@ -212,7 +246,7 @@ button:hover {
 .big {
     width: 60%;
     margin-top: 1em;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
     padding: 1em;
     font-size: 1.2em;
 }
