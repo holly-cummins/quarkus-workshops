@@ -37,8 +37,8 @@ void pactVerificationTestTemplate(PactVerificationContext context) {
 
 (No need to put that snippet anywhere yet, we will see how it fits into a test class in a moment.)
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Add the Pact dependency to the heroes service `pom.xml`:
 
@@ -89,4 +89,4 @@ public class HeroContractVerificationTest {
 ----
 
 When you run the tests they should pass.
---
+====

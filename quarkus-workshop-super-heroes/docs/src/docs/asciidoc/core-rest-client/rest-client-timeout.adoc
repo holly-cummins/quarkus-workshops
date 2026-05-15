@@ -13,8 +13,8 @@ image::fault-tolerance-pending.png[role=half-size]
 
 Getting random fighters can take longer than expected.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 To simulate a long-running process, add the following code to the `FightResource`:
 
 [source,java,indent=0]
@@ -40,7 +40,7 @@ public Response getRandomFighters() {
     return Response.ok(fighters).build();
 }
 ----
---
+====
 
 [NOTE]
 --
@@ -55,8 +55,8 @@ import org.eclipse.microprofile.faulttolerance.Timeout;
 Let's say we've added some new functionality in the `veryLongProcess` method.
 When the process is really too long and the system is overloaded, we would rather time out.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Note that the timeout was configured to 500 ms, and a `Thread.sleep` was introduced and can be configured in the `application.properties`.
 If we set the property to a higher value than the timeout, let's say 10.000, then the request should be interrupted.
 
@@ -64,7 +64,7 @@ If we set the property to a higher value than the timeout, let's say 10.000, the
 ----
 process.milliseconds=10000
 ----
---
+====
 
 == Running the Application
 
@@ -80,11 +80,11 @@ You should see the following:
 ...
 ----
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Before going further, set the `process.milliseconds` to 0.
---
+====
 
 include::../common-solution.adoc[]
 

@@ -33,8 +33,8 @@ Here, we are going to use two operators:
 * PostgreSQL Operator by Dev4Ddevs.com
 * Strimzi Apache Kafka Operator by Red Hat
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 With these operators installed, you can create the required infrastructure with the following custom resource definition (CRD):
 
@@ -60,10 +60,10 @@ spec:
     image: centos/postgresql-96-centos7
     size: 1
 ----
---
+====
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 This CRD creates the database for the Hero microservice.
 Duplicate this CRD for the fight and villain databases.
@@ -99,14 +99,14 @@ spec:
     topicOperator: {}
     userOperator: {}
 ----
---
+====
 
 This CRD creates the brokers and the Zookeeper instances.
 
 It's also recommended to create the topic.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 For this, create the following CRD:
 
@@ -141,7 +141,7 @@ $ kubectl get kafka
 NAME       DESIRED KAFKA REPLICAS   DESIRED ZK REPLICAS
 my-kafka   3
 ----
---
+====
 
 === Deploying the Hero & Villain microservices
 
@@ -150,8 +150,8 @@ Let's start with the hero and villain microservices.
 
 For each, we need to override the port and data source URL.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Create a config map with the following content:
 
@@ -166,10 +166,10 @@ kind: ConfigMap
 metadata:
     name: hero-config
 ----
---
+====
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Do the same for the villain microservice.
 Then, apply these resources:
@@ -179,12 +179,12 @@ Then, apply these resources:
 $ kubectl apply -f config-hero.yaml
 $ kubectl apply -f config-villain.yaml
 ----
---
+====
 
 Once the config maps are created, we can deploy the microservices.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Create a `deployment-hero.yaml` file with the following content:
 
@@ -261,7 +261,7 @@ items:
 
 
 ----
---
+====
 
 This descriptor declares:
 
@@ -271,8 +271,8 @@ This descriptor declares:
 The deployment declares one container using the container image we built earlier.
 It also overrides the configuration for the HTTP port and database URL.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Don't forget to create the equivalent files for the villain microservice.
 
 Then, deploy the microservice with:
@@ -282,7 +282,7 @@ Then, deploy the microservice with:
 $ kubectl apply -f deployment-hero.yaml
 $ kubectl apply -f deployment-villain.yaml
 ----
---
+====
 
 === Deploying the Fight microservice
 
@@ -345,8 +345,8 @@ Adapt the instructions for your Kubernetes:
 2. Make sure you use the correct namespace
 ====
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Edit the `src/main/resources/application.properties` to add the following lines:
 
@@ -368,7 +368,7 @@ Add the `quarkus-kubernetes` extension using the following command:
 ----
 ./mvnw quarkus:add-extension -Dextensions="kubernetes"
 ----
---
+====
 
 TIP: If you are behind a proxy, check the https://quarkus.io/guides/extension-registry-user#how-to-register-as-a-nexus-repository-proxy[Quarkus Registry] proxy documentation.
 

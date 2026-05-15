@@ -38,8 +38,8 @@ New microservice, new project!
 As before, the easiest way to create this new Quarkus project is to use the Quarkus Maven plugin (you can also go to https://code.quarkus.io if you prefer).
 Open a terminal and run the following command under the `quarkus-workshop-super-heroes/super-heroes` directory:
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 [source,shell,subs="attributes+"]
 ----
@@ -51,7 +51,7 @@ Open a terminal and run the following command under the `quarkus-workshop-super-
     -Dpath="api/narration" \
     -Dextensions="rest-jackson,quarkus-smallrye-openapi,quarkus-smallrye-fault-tolerance"
 ----
---
+====
 
 This microservice needs less dependencies than the previous ones:
 
@@ -150,8 +150,8 @@ Add the following XML in the `rest-narration/pom.xml` file:
 Let's start with the `Fight` class.
 The fight is what is going to be narrated by the microservice and ultimately sent by the Fight microservice.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Create the `io.quarkus.workshop.superheroes.narration.Fight` class in the created project with the following content:
 
@@ -159,7 +159,7 @@ Create the `io.quarkus.workshop.superheroes.narration.Fight` class in the create
 ----
 include::{projectdir}/rest-narration/src/main/java/io/quarkus/workshop/superheroes/narration/Fight.java[]
 ----
---
+====
 
 === The Narration REST Resource
 
@@ -167,15 +167,15 @@ The `NarrationResource` has one HTTP POST method to create a new narration.
 Given a fight, it will invoke the `NarrationService` to return a fight narration.
 The method is annotated with `@Timeout` and `@Fallback` so that if the OpenAI service is slow or unavailable, a fallback narration is returned instead of an error.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Open the generated `io.quarkus.workshop.superheroes.narration.NarrationResource` and update the content to be:
 
 [source,java]
 ----
 include::{projectdir}/rest-narration/src/main/java/io/quarkus/workshop/superheroes/narration/NarrationResource.java[]
 ----
---
+====
 
 === The AI Narration Service
 
@@ -189,15 +189,15 @@ The key annotations are:
 * `@SystemMessage` — provides the system prompt that sets the persona and rules for the LLM.
 * `@UserMessage` — provides the user prompt template. Template variables like `{fight.winnerName}` are resolved from the method parameters.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Create the `io.quarkus.workshop.superheroes.narration.NarrationService` interface in the created project with the following content:
 
 [source,java]
 ----
 include::{projectdir}/rest-narration/src/main/java/io/quarkus/workshop/superheroes/narration/NarrationService.java[]
 ----
---
+====
 
 That's it!
 No boilerplate, no manual HTTP calls, no JSON parsing.
@@ -214,8 +214,8 @@ Make sure that you have previously created an OpenAI subscription and obtained a
 If not, go back to xref:introduction-installing-ai[xrefstyle=full].
 ====
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Add the following configuration to the `rest-narration/src/main/resources/application.properties` file:
 
 [source,properties]
@@ -229,7 +229,7 @@ Before running the application, set the `OPENAI_API_KEY` environment variable wi
 ----
 export OPENAI_API_KEY=<your-openai-api-key>
 ----
---
+====
 
 === Testing the Narration Microservice
 
@@ -250,26 +250,26 @@ First, make sure you have the Mockito dependency in the project:
 
 Open the `io.quarkus.workshop.superheroes.narration.NarrationResourceTest` class and copy the following content:
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 [source,java]
 ----
 include::{projectdir}/rest-narration/src/test/java/io/quarkus/workshop/superheroes/narration/NarrationResourceTest.java[]
 ----
---
+====
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Make sure the tests pass by executing the command `./mvnw test` (or from your IDE).
---
+====
 
 === Running the Narration Microservice
 
 Now that the tests are green, we are ready to run our Narration microservice.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Make sure you have set the `OPENAI_API_KEY` environment variable, then use `./mvnw quarkus:dev` to start it.
 Once the Narration microservice is started, create a new narration with the following cUrl command:
@@ -290,7 +290,7 @@ The battle between the towering Chewbacca and the dark and menacing Darth Vader 
 
 Despite Chewbacca's valiant efforts, it was clear that Vader was the superior fighter. His precognition and danger sense allowed him to anticipate every move Chewbacca made, and his energy blasts and electrokinesis were devastating. In the end, Vader emerged victorious, leaving Chewbacca battered and defeated.
 ----
---
+====
 
 The cUrl command returns the narration of the fight as `text/plain`.
 
@@ -310,8 +310,8 @@ include::{plantDir}/5a-ai-physical-architecture.puml[]
 We now need to add a new endpoint to the Fight microservice to invoke the Narration microservice.
 Because it uses a remote call, we need to use the `@RegisterRestClient` annotation to register the `NarrationProxy` as a REST client.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Go back to the `io.quarkus.workshop.superheroes.fight.FightResource` class and add the new `narrateFight` method:
 
 [source,java,indent=0]
@@ -340,14 +340,14 @@ To link both microservices, we need to add the following configuration to the `r
 ----
 include::{projectdir}/rest-fights/src/main/resources/application.properties[tag=adocNarrate]
 ----
---
+====
 
 === Test and mock the Narration microservice invocation
 
 Like the other dependencies, the Narration microservice needs to be mocked so we can test the Fight microservice in isolation.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Add the following `shouldNarrate` test to the `io.quarkus.workshop.superheroes.fight.FightResourceTest` class.
 And make sure you use the right imports:
@@ -369,7 +369,7 @@ Create the `io.quarkus.workshop.superheroes.fight.client.MockNarrationProxy` cla
 ----
 include::{projectdir}/rest-fights/src/test/java/io/quarkus/workshop/superheroes/fight/client/MockNarrationProxy.java[]
 ----
---
+====
 
 Now execute `./mvnw test` and make sure that all the tests pass.
 

@@ -12,8 +12,8 @@ Quarkus has three profiles by default, although it is possible to use as many as
 
 Let's change the `VillainApplicationLifeCycle` so it displays the current profile.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 For that, just add a log invoking `ConfigUtils.getProfiles()` in the `onStart()` method:
 
@@ -21,7 +21,7 @@ For that, just add a log invoking `ConfigUtils.getProfiles()` in the `onStart()`
 ----
 include::{projectdir}/rest-villains/src/main/java/io/quarkus/workshop/superheroes/villain/VillainApplicationLifeCycle.java[tag=adocProfile]
 ----
---
+====
 
 [NOTE]
 --

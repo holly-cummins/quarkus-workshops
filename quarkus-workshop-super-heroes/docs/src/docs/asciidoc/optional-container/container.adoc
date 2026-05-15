@@ -35,8 +35,8 @@ include::{projectdir}/rest-heroes/src/main/docker/Dockerfile.jvm[tag=adocSnippet
 
 To start using it, we first need to install the jib extension in all our projects.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Add the `quarkus-container-image-jib` extension executing the following commands from the root `super-heroes` directory:
 
 [source,shell]
@@ -52,7 +52,7 @@ ifdef::use-ai[]
 ./mvnw --file rest-narration/pom.xml quarkus:add-extension -Dextensions="jib"
 endif::use-ai[]
 ----
---
+====
 
 It adds the following dependency to the `pom.xml` files:
 
@@ -64,8 +64,8 @@ It adds the following dependency to the `pom.xml` files:
 </dependency>
 ----
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Then, from the root `super-heroes` directory, execute the following commands to build the applications and create the container image (add `-Dmaven.test.skip=true` if you want to skip the tests):
 
 [source, shell]
@@ -105,14 +105,14 @@ ifdef::use-ai[]
 <org>/rest-narration          1.0.0-SNAPSHOT       fcfe334594f3   390MB
 endif::use-ai[]
 ----
---
+====
 
 == Running JVM Mode Containers Locally
 
 Now that we have all our Docker images created, let's execute them all to be sure that everything is working.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Under `super-heroes/infrastructure` you will find the `docker-compose-app-local.yaml` file.
 It declares all the needed infrastructure (databases, Kafka) as well as our microservices.
 
@@ -170,7 +170,7 @@ Then, make sure you shut down the entire application with:
 ----
 docker compose -f docker-compose-app-local.yaml down
 ----
---
+====
 
 ifdef::use-ai[]
 == Building Containers for our Microservices in Native Mode
@@ -214,8 +214,8 @@ So, first, be sure that your container system has enough memory to build the exe
 It requires at least 6Gb of memory, 8Gb is recommended.
 ====
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Execute the above command for all our microservices.
 We also copy the UI into the fight service, to simplify the process:
@@ -236,7 +236,7 @@ cd event-statistics
 ./mvnw clean package -Pnative -Dquarkus.native.container-build=true -DskipTests
 cd ..
 ----
---
+====
 
 == Building native containers
 

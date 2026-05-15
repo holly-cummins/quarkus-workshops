@@ -41,8 +41,8 @@ super-heroes
 
 Quarkus proposes a `smallrye-openapi` extension compliant with the MicroProfile OpenAPI specification in order to generate your API OpenAPI v3 specification.footnote:[MicroProfile OpenAPI https://github.com/eclipse/microprofile-open-api]
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 To install the OpenAPI dependency, just run the following command:
 
@@ -50,7 +50,7 @@ To install the OpenAPI dependency, just run the following command:
 ----
 ./mvnw quarkus:add-extension -Dextensions="smallrye-openapi"
 ----
---
+====
 
 This will add the following dependency in the `pom.xml` file:
 
@@ -74,8 +74,8 @@ include::{projectdir}/rest-villains/openapi.yml[]
 This contract lacks documentation.
 The Eclipse MicroProfile OpenAPI allows you to customize the methods of your REST endpoint as well as the application.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 While having the OpenAPI specification is great, it can't be consumed easily by humans.
 In your browser, go to http://localhost:8084/q/dev.
@@ -90,7 +90,7 @@ Click on the "_Swagger UI_" button located in the "SmallRye OpenAPI" widget (htt
 You will see all your endpoints listed.
 Click on the "_GET_" button for the "/api/villains" path, then click on "_Try it out_" and finally on "Execute".
 You can see the result immediately.
---
+====
 
 When developing REST APIs, this UI is very convenient.
 You can test your endpoint and immediately see the outcome.
@@ -106,8 +106,8 @@ The MicroProfile OpenAPI has a set of annotations to customize each REST endpoin
 * `@Parameter`: The name of the parameter.
 * `@RequestBody`: A brief description of the request body.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 This is what the `VillainResource` endpoint should look like once you have annotated it:
 
 [source,java]
@@ -117,7 +117,7 @@ include::{projectdir}/rest-villains/src/main/java/io/quarkus/workshop/superheroe
 
 With this new code, go back to the Swagger UI at http://localhost:8084/q/swagger-ui and refresh.
 Your endpoints are organized by tags, and each annotated endpoint is documented.
---
+====
 
 Documenting REST API is essential when working with different teams.
 You can see OpenAPI as the JavaDoc for REST.
@@ -130,8 +130,8 @@ But it's also important to document the entire application.
 The Microprofile OpenAPI also has a set of annotation to do so.
 The difference is that these annotations cannot be used on the endpoint methods, but instead on another Java class configuring the entire application.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 For this, you need to create the `src/main/java/io/quarkus/workshop/superheroes/villain/VillainApplication` class with the following content:
 
@@ -142,12 +142,12 @@ include::{projectdir}/rest-villains/src/main/java/io/quarkus/workshop/superheroe
 
 Go back to the Swagger UI and refresh again.
 At the top of the document, you can see the version and the global API documentation.
---
+====
 
 === Customized Contract
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 If you go back to the `http://localhost:8084/q/openapi` endpoint you will see the following OpenAPI contract:
 
@@ -157,12 +157,12 @@ include::{projectdir}/rest-villains/openapi-custom.yml[]
 ----
 
 You can expose or exchange this contract to the API consumers, so they now what to expect when using your API.
---
+====
 
 == OpenAPI Tests in VillainResourceTest
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Let's add an extra test method in `VillainResourceTest` ensuring that the OpenAPI specification is packaged with the application:
 
@@ -175,7 +175,7 @@ Run the test:
 
  - From the dev mode, or
  - By executing the test using `./mvnw test`.
---
+====
 
 include::../common-solution.adoc[]
 

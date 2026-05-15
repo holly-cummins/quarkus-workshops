@@ -14,8 +14,8 @@ IMPORTANT: This microservice uses the imperative development model but use react
 Like for the Hero and Villain API, the easiest way to create this new Quarkus project is to use a Maven archetype.
 Under the `quarkus-workshop-super-heroes/super-heroes` root directory where you have all your code.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Open a terminal and run the following command:
 
@@ -38,15 +38,15 @@ If you open the `pom.xml` file, you will see that the following extensions have 
 * `io.quarkus:quarkus-messaging-kafka`
 * `io.quarkus:quarkus-rest-jackson`
 * `io.quarkus:quarkus-jdbc-postgresql`
---
+====
 
 ifdef::use-messaging[]
 You can see that beyond the extensions we have used so far, we added the Kafka support which uses Eclipse MicroProfile Reactive Messaging.
 Stay tuned.
 endif::use-messaging[]
 
-[example, role="cta"]
---
+[role="cta"]
+====
 The Quarkus Maven plugin has generated some code that we won't be using.
 You can delete the Java classes `MyReactiveMessagingApplication` and `MyReactiveMessagingApplicationTest`.
 
@@ -56,7 +56,7 @@ If you want your IDE to manage this new Maven project, you can declare it in the
 ----
 <module>super-heroes/rest-fights</module>
 ----
---
+====
 
 == Directory Structure
 
@@ -115,8 +115,8 @@ A fight is between a hero and a villain.
 Each time there is a fight, there is a winner and a loser.
 So the `Fight` entity is there to store all these fights.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Create the `io.quarkus.workshop.superheroes.fight.Fight` class with the following content:
 
@@ -124,7 +124,7 @@ Create the `io.quarkus.workshop.superheroes.fight.Fight` class with the followin
 ----
 include::{projectdir}/rest-fights/src/main/java/io/quarkus/workshop/superheroes/fight/Fight.java[tag=!adocJavadoc]
 ----
---
+====
 
 == Fighters Bean
 
@@ -133,8 +133,8 @@ The Fight REST API will ultimately invoke the Hero and Villain APIs (next sectio
 The `Fighters` class has one `Hero` and one `Villain`.
 Notice that `Fighters` is not an entity, it is not persisted in the database, just marshalled and unmarshalled to JSon.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Create the `io.quarkus.workshop.superheroes.fight.Fighters` class, with the following content:
 
@@ -142,13 +142,13 @@ Create the `io.quarkus.workshop.superheroes.fight.Fighters` class, with the foll
 ----
 include::{projectdir}/rest-fights/src/main/java/io/quarkus/workshop/superheroes/fight/Fighters.java[tag=!adocJavadoc]
 ----
---
+====
 
 It does not compile because it needs a `Hero`  class and a `Villain` class.
 The Fight REST API is just interested in the hero's name, level, picture and powers (not the other name as described in the Hero API).
 
-[example, role="cta"]
---
+[role="cta"]
+====
 So create the `Hero` bean looks like this (notice the `client` subpackage):
 
 [source,java]
@@ -162,7 +162,7 @@ Also create the `Villain` counterpart (also in the `client` subpackage):
 ----
 include::{projectdir}/rest-fights/src/main/java/io/quarkus/workshop/superheroes/fight/client/Villain.java[tag=!adocJavadoc]
 ----
---
+====
 
 So, these classes are just used to map the results from the `Hero` and `Villain` microservices.
 
@@ -170,8 +170,8 @@ So, these classes are just used to map the results from the `Hero` and `Villain`
 
 Now, let's create a `FightService` class that orchestrate the fights.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Create the `io.quarkus.workshop.superheroes.fight.FightService` class with the following content:
 
@@ -275,7 +275,7 @@ Notice the `persistFight` method.
 This method is the one creating a fight between a hero and a villain.
 As you can see the algorithm to determine the winner is a bit random (even though it uses the levels).
 If you are not happy about the way the fight operates, choose your own winning algorithm ;o)
---
+====
 
 [NOTE]
 ====
@@ -287,8 +287,8 @@ Later, this method will invoke the Hello and Villain API to get a random Hero an
 
 To expose a REST API we also need a `FightResource` (with OpenAPI annotations of course).
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 [source,java]
 ----
@@ -304,12 +304,12 @@ Notice that most of the REST endpoints that you've seen so far produce or consum
 JSON being the default media type in Quarkus, we could have omitted the `@Produces` or `@Consume` annotation.
 ====
 
---
+====
 
 == Adding Data
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 To load some SQL statements when Hibernate ORM starts, create the `src/main/resources/import.sql` file with the following content:
 
@@ -333,14 +333,14 @@ VALUES (nextval('fight_seq'), current_timestamp,
         'Shikamaru', 1, 'https://www.superherodb.com/pictures2/portraits/10/050/11742.jpg', 'Adaptation, Agility, Element Control, Fire Control, Intelligence, Jump, Marksmanship, Possession, Reflexes, Shapeshifting, Stamina, Stealth, Telekinesis, Wallcrawling, Weapon-based Powers, Weapons Master',
         'villains', 'heroes');
 ----
---
+====
 
 == Configuration
 
 As usual, we need to configure the application.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 In the `application.properties` file add:
 
@@ -348,7 +348,7 @@ In the `application.properties` file add:
 ----
 include::{projectdir}/rest-fights/src/main/resources/application.properties[tags=!adocFaultTolerance;!adocRestClient;!adocNarrate;!adocKafka;!adocCORS]
 ----
---
+====
 
 Note that the fight service uses the port `8082`.
 
@@ -356,8 +356,8 @@ Note that the fight service uses the port `8082`.
 
 We need to test our REST API.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 For that, copy the following `FightResourceTest` class under the `src/test/java/io/quarkus/workshop/superheroes/fight` directory.
 
@@ -516,12 +516,12 @@ public class FightResourceTest {
     }
 }
 ----
---
+====
 
 == Running, Testing and Packaging the Application
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 First, delete the generated `FightResourceIT` native test class, as we won't run native tests.
 Then, make sure the tests pass by executing the command `./mvnw test` (or from your IDE).
@@ -537,4 +537,4 @@ curl http://localhost:8082/api/fights
 ----
 
 Remember that you can also check Swagger UI by going to http://localhost:8082/q/swagger-ui.
---
+====
