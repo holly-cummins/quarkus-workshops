@@ -6,8 +6,8 @@ which means that we begin by writing tests for the API consumer.
 
 == Writing the first contract test
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Add the Pact Quarkus extension to the `pom.xml` of the Fights service:
 
@@ -20,7 +20,7 @@ Add the Pact Quarkus extension to the `pom.xml` of the Fights service:
     <scope>test</scope>
 </dependency>
 ----
---
+====
 
 The Pact framework will stand up a server which listens on a port.
 To avoid port conflicts between the real services and the Pact stubs, let's use a different port for the contract instances.

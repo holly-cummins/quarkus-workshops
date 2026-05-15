@@ -9,8 +9,8 @@ You can apply the same to the other microservices.
 
 == Installing the Metrics Dependency
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 To install the MicroProfile Metrics dependency, just run the following command:
 
@@ -18,7 +18,7 @@ To install the MicroProfile Metrics dependency, just run the following command:
 ----
 ./mvnw quarkus:add-extension -Dextensions="metrics"
 ----
---
+====
 
 This will add the following dependency in the `pom.xml` file:
 
@@ -31,15 +31,15 @@ include::{projectdir}/rest-heroes/pom.xml[tags=adocDependencyMetrics]
 
 We want now to measure all methods of all our REST resources.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 For that, we need a few annotations to make sure that our desired metrics are calculated over time and can be exported for manual analysis or processing by additional tooling.
 The metrics that we will gather are these:
 
 * `countGetRandomHero`: A counter which is increased by one each time the user gets a random hero.
 * `timeGetRandomHero`: This is a timer, therefore a compound metric that benchmarks how much time the request take.
---
+====
 
 Below the source code of the `getRandomHero()` method, but make sure to add metrics on all methods:
 
@@ -48,10 +48,10 @@ Below the source code of the `getRandomHero()` method, but make sure to add metr
 include::{projectdir}/rest-heroes/src/main/java/io/quarkus/workshop/superheroes/hero/HeroResource.java[tags=adocMetricsMethods]
 ----
 
-[example, role="cta"]
---
+[role="cta"]
+====
 [NOTE]
---
+====
 You will need to add the following import statements:
 ```
 import org.eclipse.microprofile.metrics.MetricUnits;
@@ -63,8 +63,8 @@ import org.eclipse.microprofile.metrics.annotation.Timed;
 
 == Metrics Tests in HeroResourceTest
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Let's add an extra test method that would make sure Metrics are available in the application:
 
@@ -101,7 +101,7 @@ You will receive a response such as:
   }
 }
 ----
---
+====
 
 Let’s explain the meaning of each metric:
 

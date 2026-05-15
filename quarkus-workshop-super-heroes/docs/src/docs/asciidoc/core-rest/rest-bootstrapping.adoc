@@ -9,8 +9,8 @@ That's what you are going to see in this section.
 The easiest way to create a new Quarkus project is to use the Quarkus Maven plugin.
 Open a terminal and run the following command under the `quarkus-workshop-super-heroes/super-heroes` directory:
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 [source,shell,subs="attributes+"]
 ----
@@ -41,7 +41,7 @@ If you want your IDE to manage this new Maven project, you can declare it in the
 ----
 <module>super-heroes/rest-villains</module>
 ----
---
+====
 [TIP]
 .Prefer a Web UI?
 ====
@@ -227,8 +227,8 @@ NOTE: Methods can also have their own `@Path` annotation suffixed to the class o
 
 == Running the Application
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Now we are ready to run our application.
 
@@ -284,7 +284,7 @@ Hello from Quarkus REST
 ----
 
 Alternatively, you can open http://localhost:8080/api/villains in your browser.
---
+====
 
 == Development Mode
 
@@ -304,8 +304,8 @@ To check that the hot reload is working, update the `VillainResource.hello()` me
 
 Now, execute the cURL command again:
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 [source,shell]
 ----
@@ -313,7 +313,7 @@ curl http://localhost:8080/api/villains
 ----
 
 The output has changed ("_Hello Villain Resource_") without you having to stop and restart Quarkus!
---
+====
 
 == Testing the Application
 
@@ -394,8 +394,8 @@ So in your RestAssured tests, you don't have to specify the default test port 80
 You can also configure the ports used by tests by configuring the `quarkus.http.test-port` property in the application.properties.
 ====
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 In the terminal running the application in _dev mode_ (`./mvnw quarkus:dev`), you should see at the bottom:
 
@@ -405,7 +405,7 @@ Tests paused
 Press [r] to resume testing, [o] Toggle test output, [:] for the terminal, [h] for more options>
 ----
 
---
+====
 
 Hit the `r` key, and watch Quarkus execute your tests automatically and even continuously.
 Unfortunately, this first run didn't end well:
@@ -502,8 +502,8 @@ You can also run the tests from a terminal using:
 
 == Packaging and Running the Application
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 The application is packaged using the `./mvnw package` command (it also runs the tests).
 That command generates:
@@ -514,7 +514,7 @@ That command generates:
 This _fast jar_ takes advantage of the build-time principle of Quarkus (we discuss it soon) to improve the application performances and which can be easily transposed to container layers.
 
 Stop the application running in dev mode (by hitting `q` or `CTRL+C`), and run the application using: `java -jar target/quarkus-app/quarkus-run.jar`.
---
+====
 
 [NOTE]
 ====

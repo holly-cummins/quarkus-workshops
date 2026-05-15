@@ -3,8 +3,8 @@
 
 During this workshop, we will use several ports.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Use `lsof` to make sure the following ports are free, so you don't run into any conflicts.
 
 [source,shell]
@@ -28,4 +28,4 @@ lsof -i tcp:2181    # Zookeeper
 lsof -i tcp:9092    # Kafka
 endif::use-messaging[]
 ----
---
+====

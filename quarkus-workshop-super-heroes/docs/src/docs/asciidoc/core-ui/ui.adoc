@@ -31,13 +31,13 @@ All the React code (graphical components, model, services) is located under `src
 
 We don't need to worry too much about the React code.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 From the `ui-super-heroes`
 directory, use `./mvnw quarkus:dev` to start the web application.
 
 Be sure you have the hero, villain and fights microservices running (dev mode is enough).
---
+====
 
 If you don't have Node installed, Quinoa will install it during the start process (under the `.quinoa` directory).
 
@@ -77,13 +77,13 @@ However, that's beyond the scope of this workshop!
 
 Live coding works for the javascript parts of the application, just as it does for the Java ones.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Open `src/main/webui/src/app/app.component.html` and edit the text, perhaps by adding 'Hello there' into the welcome message.
 Check localhost:8080, and your new content should appear.
 (It may take a moment or two for the refresh to trigger.)
 
 You can also change the javascript code.
 For example, try updating the text in `src/main/webui/src/app/app.component.ts`.
---
+====
 

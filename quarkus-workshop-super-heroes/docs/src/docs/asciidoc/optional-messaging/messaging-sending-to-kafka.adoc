@@ -42,8 +42,8 @@ super-heroes
 
 == Adding the Reactive Messaging Dependency
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 The Kafka extension was already imported during the project creation.
 In doubt, you can run in the Fight microservice:
@@ -52,7 +52,7 @@ In doubt, you can run in the Fight microservice:
 ----
 ./mvnw quarkus:add-extension -Dextensions=" io.quarkus:quarkus-smallrye-reactive-messaging-kafka"
 ----
---
+====
 
 The previous command adds the following dependency:
 
@@ -74,8 +74,8 @@ You can check that by executing the `docker container ls` command.
 
 == Connecting Imperative and Reactive Using an Emitter
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Now edit the `FightService` class.
 First, add the following field:
@@ -84,7 +84,7 @@ First, add the following field:
 ----
 @Channel("fights") Emitter<Fight> emitter;
 ----
---
+====
 
 [NOTE]
 ====
@@ -115,15 +115,15 @@ Thus, we wait until Kafka confirms the reception before returning.
 At this point, the serialized fights are sent to the `fights` channel.
 You need to connect this `channel` to a Kafka topic.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 For this, edit the `application.properties` file and add the following properties:
 
 [source,properties]
 ----
 include::{projectdir}/rest-fights/src/main/resources/application.properties[tag=adocKafka]
 ----
---
+====
 
 These properties are structured as follows:
 

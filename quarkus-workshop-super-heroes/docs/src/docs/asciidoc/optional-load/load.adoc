@@ -24,8 +24,8 @@ include::{projectdir}/load-super-heroes/src/main/java/io/quarkus/workshop/superh
 
 == Running the Load Application
 
-[example, role="cta"]
---
+[role="cta"]
+====
 You are all set!
 Time to compile and start the load application using:
 
@@ -34,7 +34,7 @@ Time to compile and start the load application using:
 ./mvnw package
 java -jar ./target/quarkus-app/quarkus-run.jar -s
 ----
---
+====
 
 You will see the following logs. To stop the load, write something and press Enter key.
 

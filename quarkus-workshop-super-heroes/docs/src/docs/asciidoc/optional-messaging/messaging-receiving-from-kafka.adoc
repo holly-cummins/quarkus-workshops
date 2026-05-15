@@ -42,8 +42,8 @@ super-heroes
 Like for the other microservice, the easiest way to create this new Quarkus project is to use a Maven command.
 Under the `quarkus-workshop-super-heroes/super-heroes` root directory where you have all your code.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Open a terminal and run the following command:
 
@@ -57,7 +57,7 @@ Open a terminal and run the following command:
     -Dpath="api/stats" \
     -Dextensions="kafka, rest-jackson, websockets"
 ----
---
+====
 
 If you want your IDE to manage this new Maven project, you can declare it in the parent POM by adding this new module in the `<modules>` section:
 
@@ -66,17 +66,17 @@ If you want your IDE to manage this new Maven project, you can declare it in the
 <module>super-heroes/event-statistics</module>
 ----
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 Delete all the classes under the `io.quarkus.workshop.superheroes.statistics` package as well as the associated test classes.
 There are just examples.
---
+====
 
 == Consuming Fight
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 This service receives the `Fight` from the fight microservice.
 So, naturally, we need a fight class.
@@ -95,12 +95,12 @@ Create the `io.quarkus.workshop.superheroes.statistics.FightDeserializer` class 
 ----
 include::{projectdir}/event-statistics/src/main/java/io/quarkus/workshop/superheroes/statistics/FightDeserializer.java[]
 ----
---
+====
 
 == Computing Statistics
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Now, create the `io.quarkus.workshop.superheroes.statistics.SuperStats` class with the following content.
 This class contains two methods annotated with `@Incoming` and `@Outgoing`, both consuming the `Fight` coming from Kafka.
 
@@ -114,10 +114,10 @@ The `computeTopWinners` method uses more advanced reactive programming construct
 ----
 include::{projectdir}/event-statistics/src/main/java/io/quarkus/workshop/superheroes/statistics/SuperStats.java[tag=!adocJavadoc]
 ----
---
+====
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 In addition, create the `io.quarkus.workshop.superheroes.statistics.Ranking`, `io.quarkus.workshop.superheroes.statistics.Score` and `io.quarkus.workshop.superheroes.statistics.TeamStats` classes with the following contents:
 
@@ -128,7 +128,7 @@ Then, create the `Ranking` class, used to compute a floating top 10, with the fo
 ----
 include::{projectdir}/event-statistics/src/main/java/io/quarkus/workshop/superheroes/statistics/Ranking.java[tag=!adocJavadoc]
 ----
---
+====
 The `Score` class is a simple structure storing the name of a hero or villain and its actual score, _i.e._ the number of won battles.
 
 [source,java]
@@ -153,15 +153,15 @@ Without, the serialization/deserialization would not work when running the nativ
 
 It's now time to connect the `fights` channel with the Kafka topic.
 
-[example, role="cta"]
---
+[role="cta"]
+====
 Edit the `application.properties` file and add the following content:
 
 [source,properties]
 ----
 include::{projectdir}/event-statistics/src/main/resources/application.properties[]
 ----
---
+====
 
 As for the writing side, it configures the Kafka connector.
 The `mp.messaging.incoming.fights.auto.offset.reset=earliest` property indicates that the topic is read from the earliest available record.

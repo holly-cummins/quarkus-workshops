@@ -19,13 +19,13 @@ quarkus-workshop-super-heroes
 
 == Download the workshop scaffolding
 
-[example, role="cta"]
---
+[role="cta"]
+====
 
 We've done some of the layout for you. First, download the zip file  {github-raw}/dist/quarkus-super-heroes-workshop.zip, and unzip it wherever you want.
 This zip file contains _some_ of the code of the workshop, along with assets you will need to complete it.
 
---
+====
 
 === Super Heroes Application
 
