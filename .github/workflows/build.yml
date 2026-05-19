@@ -115,6 +115,8 @@ jobs:
   test-docs:
     needs: [ publication ]
     runs-on: ubuntu-latest
+    env:
+      MAVEN_OPTS: "-Xmx4g"
     steps:
       - uses: actions/checkout@v4
       - name: Install JDK 17
